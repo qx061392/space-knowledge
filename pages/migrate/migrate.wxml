@@ -1,0 +1,38 @@
+<view class="page space-bg">
+  <view class="starfield"></view>
+  <view class="container" style="position:relative; z-index:1; padding: 60rpx 40rpx;">
+
+    <view class="migrate-card">
+      <view class="migrate-icon">☁️</view>
+      <text class="migrate-title">数据迁移到云端</text>
+      <text class="migrate-desc">将本地知识库数据上传到微信云数据库，之后数据更新无需重新上传代码和审核</text>
+
+      <view class="migrate-status" wx:if="{{status !== 'idle'}}">
+        <text class="status-msg">{{message}}</text>
+        <text class="status-detail" wx:if="{{detail}}">{{detail}}</text>
+        <view class="progress-bar" wx:if="{{status === 'running'}}">
+          <view class="progress-fill" style="width: {{progress}}%;"></view>
+        </view>
+        <text class="progress-num" wx:if="{{status === 'running'}}">{{progress}}%</text>
+      </view>
+
+      <view class="migrate-btn" bindtap="doMigrate" wx:if="{{status !== 'running'}}">
+        <text>{{status === 'done' ? '重新迁移' : (status === 'error' ? '重试' : '开始迁移')}}</text>
+      </view>
+
+      <view class="migrate-tip" wx:if="{{status === 'done'}}">
+        <text>✅ 迁移完成！请在云开发控制台确认数据</text>
+        <text>之后小程序将自动从云端读取数据</text>
+      </view>
+    </view>
+
+    <view class="migrate-tip-box">
+      <text class="tip-title">迁移说明：</text>
+      <text class="tip-line">1. 需先在云开发控制台创建3个集合</text>
+      <text class="tip-line">2. 集合名称：categories、knowledge、quiz</text>
+      <text class="tip-line">3. 每个集合权限设为"所有用户可读"</text>
+      <text class="tip-line">4. 迁移后本地数据仍保留作为备份</text>
+    </view>
+
+  </view>
+</view>
