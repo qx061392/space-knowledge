@@ -1,0 +1,46 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/category/category",
+    "pages/quiz/quiz",
+    "pages/favorites/favorites",
+    "pages/detail/detail",
+    "pages/search/search",
+    "pages/category-list/category-list",
+    "pages/quiz-result/quiz-result",
+    "pages/migrate/migrate"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#0B1026",
+    "navigationBarTitleText": "航天知识库",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#0B1026",
+    "backgroundTextStyle": "light",
+    "enablePullDownRefresh": false
+  },
+  "tabBar": {
+    "custom": true,
+    "color": "#6B7280",
+    "selectedColor": "#00D4FF",
+    "backgroundColor": "#0F1530",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/category/category",
+        "text": "分类"
+      },
+      {
+        "pagePath": "pages/quiz/quiz",
+        "text": "问答"
+      },
+      {
+        "pagePath": "pages/favorites/favorites",
+        "text": "收藏"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json"
+}
