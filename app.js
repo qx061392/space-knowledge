@@ -34,20 +34,20 @@ App({
   loadCloudData() {
     const db = wx.cloud.database()
     Promise.all([
-      db.collection('categories').limit(10).get(),
-      db.collection('knowledge').limit(100).get(),
-      db.collection('quiz').limit(100).get()
-    ]).then(([cRes, kRes, qRes]) => {
-      if (!kRes.data.length || !cRes.data.length) {
+      this.fetchAll(db, 'categories', 10),
+      this.fetchAll(db, 'knowledge', 100),
+      this.fetchAll(db, 'quiz', 100)
+    ]).then(([cats, knows, quizzes]) => {
+      if (!knows.length || !cats.length) {
         this.loadLocalData()
         return
       }
       this.globalData.knowledgeData = {
-        categories: cRes.data,
-        knowledgeList: kRes.data
+        categories: cats,
+        knowledgeList: knows
       }
       this.globalData.quizData = {
-        quizList: qRes.data
+        quizList: quizzes
       }
       this.globalData.cloudReady = true
       if (this.dataReadyCallback) this.dataReadyCallback()
@@ -55,6 +55,18 @@ App({
       console.error('Cloud load failed, fallback to local:', err)
       this.loadLocalData()
     })
+  },
+
+  async fetchAll(db, collection, max) {
+    let all = []
+    let skip = 0
+    while (all.length < max) {
+      const res = await db.collection(collection).skip(skip).limit(20).get()
+      all = all.concat(res.data)
+      if (res.data.length < 20) break
+      skip += 20
+    }
+    return all
   },
 
   loadLocalData() {
