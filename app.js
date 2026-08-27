@@ -38,6 +38,10 @@ App({
       db.collection('knowledge').limit(100).get(),
       db.collection('quiz').limit(100).get()
     ]).then(([cRes, kRes, qRes]) => {
+      if (!kRes.data.length || !cRes.data.length) {
+        this.loadLocalData()
+        return
+      }
       this.globalData.knowledgeData = {
         categories: cRes.data,
         knowledgeList: kRes.data
