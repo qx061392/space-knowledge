@@ -30,7 +30,7 @@ if not exist "%LOCAL_DIR%\data" (
     exit /b 1
 )
 
-for %%F in (data/knowledge.js data/knowledge-new.js data/quiz.js data/quiz-new.js) do (
+for %%F in (data/knowledge.js data/quiz.js) do (
     echo Downloading %%F ...
     powershell -NoProfile -Command "try { Invoke-WebRequest -Uri '%BASE_URL%/%%F' -OutFile '%LOCAL_DIR%\%%F' -UseBasicParsing; Write-Host '   [OK]' } catch { Write-Host '   [FAILED]' }"
 )
