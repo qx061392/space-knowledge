@@ -1,0 +1,125 @@
+<view class="page space-bg">
+  <view class="starfield"></view>
+
+  <!-- Loading -->
+  <view class="loading-state" wx:if="{{loading}}">
+    <text class="loading-icon">🛰️</text>
+    <text class="loading-text">加载中...</text>
+  </view>
+
+  <view class="container" wx:if="{{!loading}}">
+    <!-- Hero -->
+    <view class="hero fade-in-up">
+      <view class="hero-badge">
+        <text class="hero-badge-icon">🌍</text>
+        <view class="hero-badge-text">
+          <text class="hero-title">航天知识库</text>
+          <text class="hero-subtitle">探索星辰大海的奥秘</text>
+        </view>
+      </view>
+      <view class="hero-stats">
+        <view class="hero-stat">
+          <text class="stat-num">{{totalKnowledge}}</text>
+          <text class="stat-label">知识条目</text>
+        </view>
+        <view class="hero-stat">
+          <text class="stat-num">5</text>
+          <text class="stat-label">知识分类</text>
+        </view>
+        <view class="hero-stat">
+          <text class="stat-num">{{totalQuiz}}</text>
+          <text class="stat-label">趣味问答</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- Search Bar -->
+    <view class="search-bar" bindtap="goToSearch">
+      <view class="search-input-wrap">
+        <text class="search-icon">🔍</text>
+        <text class="search-placeholder">搜索航天知识...</text>
+      </view>
+    </view>
+
+    <!-- Daily Recommendation -->
+    <view class="section fade-in-up" style="animation-delay: 0.1s;">
+      <view class="section-header">
+        <view class="section-title">每日推荐</view>
+        <view class="daily-badge">📅 今日精选</view>
+      </view>
+      <view class="daily-card" bindtap="goToDetail" data-id="{{dailyItem.id}}" wx:if="{{dailyItem}}">
+        <view class="daily-top">
+          <view class="daily-icon" style="background: {{dailyCatInfo.color}}22; border-color: {{dailyCatInfo.color}}44;">
+            <text class="daily-icon-emoji">{{dailyItem.icon}}</text>
+          </view>
+          <view class="daily-info">
+            <text class="daily-cat" style="color: {{dailyCatInfo.color}};">{{dailyCatInfo.icon}} {{dailyCatInfo.name}}</text>
+            <text class="daily-title">{{dailyItem.title}}</text>
+            <text class="daily-subtitle">{{dailyItem.subtitle}}</text>
+          </view>
+        </view>
+        <text class="daily-summary ellipsis-3">{{dailyItem.summary}}</text>
+        <view class="daily-footer">
+          <text class="daily-readmore">阅读全文 →</text>
+        </view>
+        <view class="daily-glow" style="background: radial-gradient(circle at 90% 10%, {{dailyCatInfo.color}}20, transparent 50%);"></view>
+      </view>
+    </view>
+
+    <!-- Categories -->
+    <view class="section fade-in-up" style="animation-delay: 0.2s;">
+      <view class="section-header">
+        <view class="section-title">知识分类</view>
+        <text class="section-more" bindtap="goToCategoryList">全部 →</text>
+      </view>
+      <view class="category-grid">
+        <view class="category-item" wx:for="{{categories}}" wx:key="id" bindtap="goToCategory" data-id="{{item.id}}">
+          <view class="cat-icon-circle" style="border-color: {{item.color}}44; background: {{item.color}}18;">
+            <text class="cat-icon-emoji">{{item.icon}}</text>
+          </view>
+          <text class="cat-name">{{item.name}}</text>
+          <text class="cat-count">{{item.count}} 篇</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- Quick Quiz Entry -->
+    <view class="quiz-banner fade-in-up" style="animation-delay: 0.3s;" bindtap="goToQuiz">
+      <view class="quiz-banner-left">
+        <text class="quiz-banner-icon">🧠</text>
+        <view class="quiz-banner-text">
+          <text class="quiz-banner-title">航天知识问答</text>
+          <text class="quiz-banner-desc">{{totalQuiz}}道趣味题，挑战你的航天知识</text>
+        </view>
+      </view>
+      <text class="quiz-banner-arrow">→</text>
+      <view class="quiz-banner-glow"></view>
+    </view>
+
+    <!-- Recent History -->
+    <view class="section fade-in-up" style="animation-delay: 0.4s;" wx:if="{{recentHistory.length > 0}}">
+      <view class="section-header">
+        <view class="section-title">最近浏览</view>
+      </view>
+      <view class="history-list">
+        <view class="history-item" wx:for="{{recentHistory}}" wx:key="id" bindtap="goToDetail" data-id="{{item.id}}">
+          <text class="history-icon">{{item.icon}}</text>
+          <view class="history-info">
+            <text class="history-title ellipsis-2">{{item.title}}</text>
+            <text class="history-time">{{item.subtitle}}</text>
+          </view>
+          <text class="history-arrow">›</text>
+        </view>
+      </view>
+    </view>
+
+    <view style="height: 40rpx;"></view>
+    <view class="footer-text">
+      <text>🚀 航天知识库 · 探索无垠宇宙</text>
+    </view>
+    <view class="migrate-entry" bindtap="goToMigrate">
+      <text>☁️ 云数据迁移</text>
+    </view>
+    <view class="tab-bottom-space"></view>
+  </view>
+</view>
