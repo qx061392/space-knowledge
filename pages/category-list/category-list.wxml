@@ -1,0 +1,25 @@
+<view class="page space-bg">
+  <view class="starfield"></view>
+  <view class="container" style="position:relative; z-index:1;">
+    <view class="cat-header fade-in-up">
+      <view class="cat-header-icon" style="background: {{catInfo.color}}18; border-color: {{catInfo.color}}44;">
+        <text class="cat-header-emoji">{{catInfo.icon}}</text>
+      </view>
+      <view class="cat-header-info">
+        <text class="cat-header-name">{{catInfo.name}}</text>
+        <text class="cat-header-count">{{items.length}} 篇知识</text>
+      </view>
+    </view>
+    <view class="sort-bar">
+      <text class="sort-item {{sortBy === 'default' ? 'sort-active' : ''}}" bindtap="onSortChange" data-sort="default">默认</text>
+      <text class="sort-item {{sortBy === 'year' ? 'sort-active' : ''}}" bindtap="onSortChange" data-sort="year">按时间</text>
+    </view>
+    <view class="list">
+      <knowledge-card wx:for="{{items}}" wx:key="id" item="{{item}}" showCategory="{{false}}"></knowledge-card>
+    </view>
+    <view class="empty-state" wx:if="{{items.length === 0}}">
+      <text class="empty-icon">📭</text>
+      <text class="empty-text">暂无内容</text>
+    </view>
+  </view>
+</view>
