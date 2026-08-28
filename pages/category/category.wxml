@@ -1,0 +1,30 @@
+<view class="page space-bg">
+  <view class="starfield"></view>
+  <view class="container" style="position:relative; z-index:1;">
+    <view class="page-header fade-in-up">
+      <text class="page-title">知识分类</text>
+      <text class="page-desc">选择感兴趣的主题，开启探索之旅</text>
+    </view>
+    <view class="cat-block" wx:for="{{categories}}" wx:key="id" bindtap="goToCategoryList" data-id="{{item.id}}" style="animation-delay: {{index * 0.08}}s;">
+      <view class="cat-block-header">
+        <view class="cat-block-icon" style="background: {{item.color}}18; border-color: {{item.color}}44;">
+          <text class="cat-block-emoji">{{item.icon}}</text>
+        </view>
+        <view class="cat-block-info">
+          <text class="cat-block-name">{{item.name}}</text>
+          <text class="cat-block-count">{{item.count}} 篇知识 · {{item.desc}}</text>
+        </view>
+        <text class="cat-block-arrow" style="color: {{item.color}};">→</text>
+      </view>
+      <view class="cat-block-preview" catchtap="goToDetail" data-id="{{item2.id}}" wx:for="{{item.items}}" wx:for-item="item2" wx:key="id">
+        <text class="preview-emoji">{{item2.icon}}</text>
+        <view class="preview-text">
+          <text class="preview-title">{{item2.title}}</text>
+          <text class="preview-sub ellipsis-1">{{item2.subtitle}}</text>
+        </view>
+      </view>
+      <view class="cat-block-glow" style="background: radial-gradient(circle at 95% 5%, {{item.color}}12, transparent 50%);"></view>
+    </view>
+    <view class="tab-bottom-space"></view>
+  </view>
+</view>
