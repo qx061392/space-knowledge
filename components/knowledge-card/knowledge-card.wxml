@@ -1,0 +1,22 @@
+<view class="kc-card {{compact ? 'kc-compact' : ''}}" bindtap="onTap">
+  <view class="kc-top">
+    <view class="kc-icon" style="background: {{catInfo.color}}22; border-color: {{catInfo.color}}44;">
+      <text class="kc-icon-emoji">{{item.icon || catInfo.icon}}</text>
+    </view>
+    <view class="kc-info">
+      <view class="kc-title-row">
+        <text class="kc-title">{{item.title}}</text>
+        <text wx:if="{{item.year}}" class="kc-year">{{item.year}}</text>
+      </view>
+      <text class="kc-subtitle">{{item.subtitle}}</text>
+    </view>
+  </view>
+  <view class="kc-bottom">
+    <view class="kc-tags" wx:if="{{showCategory}}">
+      <text class="kc-cat-tag" style="color: {{catInfo.color}}; background: {{catInfo.color}}1a;">{{catInfo.icon}} {{catInfo.name}}</text>
+      <text wx:for="{{item.tags}}" wx:key="*this" wx:if="{{index < 2}}" class="kc-tag">#{{item}}</text>
+    </view>
+    <text wx:if="{{showSummary}}" class="kc-summary ellipsis-2">{{item.summary}}</text>
+  </view>
+  <view class="kc-glow" style="background: radial-gradient(circle at 80% 20%, {{catInfo.color}}15, transparent 60%);"></view>
+</view>
