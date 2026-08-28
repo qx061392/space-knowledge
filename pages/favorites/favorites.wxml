@@ -1,0 +1,66 @@
+<view class="page space-bg">
+  <view class="starfield"></view>
+  <view class="container" style="position:relative; z-index:1;">
+    <!-- Tab Bar -->
+    <view class="fav-tab-bar">
+      <view class="fav-tab {{activeTab === 'favorites' ? 'tab-active' : ''}}" bindtap="switchTab" data-tab="favorites">
+        <text class="fav-tab-text">收藏</text>
+        <text class="fav-tab-count" wx:if="{{favCount > 0}}">{{favCount}}</text>
+      </view>
+      <view class="fav-tab {{activeTab === 'history' ? 'tab-active' : ''}}" bindtap="switchTab" data-tab="history">
+        <text class="fav-tab-text">历史</text>
+        <text class="fav-tab-count" wx:if="{{hisCount > 0}}">{{hisCount}}</text>
+      </view>
+    </view>
+
+    <!-- Favorites Tab -->
+    <view class="fav-list" wx:if="{{activeTab === 'favorites'}}">
+      <view class="fav-item" wx:for="{{favorites}}" wx:key="id" data-id="{{item.id}}" bindtap="goToDetail">
+        <view class="fav-item-icon" style="background: {{item.catInfo.color}}18; border-color: {{item.catInfo.color}}44;">
+          <text class="fav-item-emoji">{{item.icon}}</text>
+        </view>
+        <view class="fav-item-info">
+          <text class="fav-item-title">{{item.title}}</text>
+          <text class="fav-item-sub">{{item.subtitle}}</text>
+          <text class="fav-item-cat" style="color: {{item.catInfo.color}};">{{item.catInfo.icon}} {{item.catInfo.name}}</text>
+        </view>
+        <view class="fav-item-action" catchtap="removeFav" data-id="{{item.id}}">
+          <text class="fav-item-star">★</text>
+        </view>
+        <view class="fav-item-glow" style="background: radial-gradient(circle at 95% 50%, {{item.catInfo.color}}08, transparent 50%);"></view>
+      </view>
+
+      <view class="empty-state" wx:if="{{favorites.length === 0}}">
+        <text class="empty-icon">⭐</text>
+        <text class="empty-text">还没有收藏</text>
+        <text class="empty-hint">在知识详情页点击收藏</text>
+      </view>
+    </view>
+
+    <!-- History Tab -->
+    <view class="fav-list" wx:if="{{activeTab === 'history'}}">
+      <view class="fav-header" wx:if="{{hisCount > 0}}">
+        <text class="fav-clear-btn" bindtap="clearHistory">清空历史</text>
+      </view>
+      <view class="fav-item" wx:for="{{history}}" wx:key="id" data-id="{{item.id}}" bindtap="goToDetail">
+        <view class="fav-item-icon" style="background: {{item.catInfo.color}}18; border-color: {{item.catInfo.color}}44;">
+          <text class="fav-item-emoji">{{item.icon}}</text>
+        </view>
+        <view class="fav-item-info">
+          <text class="fav-item-title">{{item.title}}</text>
+          <text class="fav-item-sub">{{item.subtitle}}</text>
+          <text class="fav-item-cat" style="color: {{item.catInfo.color}};">{{item.catInfo.icon}} {{item.catInfo.name}}</text>
+        </view>
+        <text class="fav-item-arrow">›</text>
+        <view class="fav-item-glow" style="background: radial-gradient(circle at 95% 50%, {{item.catInfo.color}}08, transparent 50%);"></view>
+      </view>
+
+      <view class="empty-state" wx:if="{{history.length === 0}}">
+        <text class="empty-icon">🕐</text>
+        <text class="empty-text">还没有浏览记录</text>
+        <text class="empty-hint">去看看航天知识吧</text>
+      </view>
+    </view>
+    <view class="tab-bottom-space"></view>
+  </view>
+</view>
