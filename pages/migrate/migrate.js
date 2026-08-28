@@ -10,28 +10,43 @@ Page({
   },
 
   async doMigrate() {
-    this.setData({ status: 'running', message: '开始迁移...', progress: 0 })
+    this.setData({ status: 'running', message: '准备迁移...', progress: 0 })
     const db = wx.cloud.database()
-    const cmd = db.command
 
     try {
-      // 1. 迁移分类
-      this.setData({ message: '迁移分类数据...', detail: knowledge.categories.length + ' 条' })
+      this.setData({ message: '清空旧数据...', detail: 'knowledge + quiz' })
+      await this.clearCollection(db, 'knowledge')
+      await this.clearCollection(db, 'quiz')
+      await this.clearCollection(db, 'categories')
+
+      this.setData({ message: '迁移分类数据...', detail: knowledge.categories.length + ' 条', progress: 10 })
       await this.batchInsert(db, 'categories', knowledge.categories)
 
-      // 2. 迁移知识条目
       this.setData({ message: '迁移知识条目...', detail: knowledge.knowledgeList.length + ' 条' })
       await this.batchInsert(db, 'knowledge', knowledge.knowledgeList)
 
-      // 3. 迁移问答题
       this.setData({ message: '迁移问答题...', detail: quiz.quizList.length + ' 条' })
       await this.batchInsert(db, 'quiz', quiz.quizList)
 
-      this.setData({ status: 'done', message: '迁移完成！', progress: 100, detail: '共 ' + (knowledge.categories.length + knowledge.knowledgeList.length + quiz.quizList.length) + ' 条数据' })
+      const total = knowledge.categories.length + knowledge.knowledgeList.length + quiz.quizList.length
+      this.setData({ status: 'done', message: '迁移完成！', progress: 100, detail: '共 ' + total + ' 条数据' })
       wx.showToast({ title: '迁移成功', icon: 'success' })
     } catch (err) {
       this.setData({ status: 'error', message: '迁移失败', detail: err.errMsg || err.message || '未知错误' })
       wx.showToast({ title: '迁移失败', icon: 'none' })
+    }
+  },
+
+  async clearCollection(db, name) {
+    const col = db.collection(name)
+    const count = await col.count()
+    if (count.total === 0) return
+    let deleted = 0
+    while (deleted < count.total) {
+      const res = await col.limit(20).get()
+      if (!res.data.length) break
+      await Promise.all(res.data.map(item => col.doc(item._id).remove()))
+      deleted += res.data.length
     }
   },
 
