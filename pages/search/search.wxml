@@ -1,0 +1,58 @@
+<view class="page space-bg">
+  <view class="starfield"></view>
+  <view class="container" style="position:relative; z-index:1;">
+    <!-- Search Input -->
+    <view class="search-input-bar">
+      <view class="search-input-inner">
+        <text class="search-icon">🔍</text>
+        <input class="search-input" placeholder="搜索航天知识..." placeholder-class="ph" value="{{keyword}}" bindinput="onInput" bindconfirm="onSearch" confirm-type="search" focus />
+        <text class="search-clear" wx:if="{{keyword}}" bindtap="onClearInput">✕</text>
+      </view>
+      <text class="search-btn" bindtap="onSearch">搜索</text>
+    </view>
+
+    <!-- Hot Tags -->
+    <view class="search-section" wx:if="{{!hasSearched && hotTags.length}}">
+      <view class="section-title">🔥 热门搜索</view>
+      <view class="tag-cloud">
+        <text class="hot-tag" wx:for="{{hotTags}}" wx:key="*this" bindtap="onTagTap" data-tag="{{item}}">{{item}}</text>
+      </view>
+    </view>
+
+    <!-- Search History -->
+    <view class="search-section" wx:if="{{!hasSearched && searchHistory.length}}">
+      <view class="section-title" style="justify-content: space-between; display: flex; width: 100%;">
+        <text>🕐 搜索历史</text>
+        <text class="clear-btn" bindtap="clearHistory">清空</text>
+      </view>
+      <view class="history-tags">
+        <text class="history-tag" wx:for="{{searchHistory}}" wx:key="*this" bindtap="onHistoryTap" data-keyword="{{item}}">{{item}}</text>
+      </view>
+    </view>
+
+    <!-- Results -->
+    <view class="results" wx:if="{{hasSearched}}">
+      <view class="results-count">找到 {{results.length}} 条结果</view>
+      <view class="result-item" wx:for="{{results}}" wx:key="id" data-id="{{item.id}}" bindtap="goToDetail">
+        <view class="result-top">
+          <text class="result-icon">{{item.icon}}</text>
+          <view class="result-info">
+            <view class="result-title-row">
+              <text wx:for="{{item.titleParts}}" wx:for-item="part" wx:key="index" class="{{part.highlight ? 'highlight' : ''}}">{{part.text}}</text>
+            </view>
+            <view class="result-summary-row">
+              <text wx:for="{{item.summaryParts}}" wx:for-item="part" wx:key="index" class="{{part.highlight ? 'highlight' : 'result-summary'}}">{{part.text}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- No Results -->
+    <view class="empty-state" wx:if="{{hasSearched && results.length === 0}}">
+      <text class="empty-icon">🌑</text>
+      <text class="empty-text">没有找到相关内容</text>
+      <text class="empty-hint">试试其他关键词吧</text>
+    </view>
+  </view>
+</view>
