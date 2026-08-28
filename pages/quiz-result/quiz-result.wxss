@@ -1,0 +1,23 @@
+.page { min-height: 100vh; }
+.container { padding: 24rpx 32rpx; display: flex; flex-direction: column; align-items: center; }
+.result-card { width: 100%; background: linear-gradient(135deg, rgba(26,31,58,0.95) 0%, rgba(16,20,42,0.95) 100%); border: 1rpx solid rgba(0,212,255,0.12); border-radius: 28rpx; padding: 48rpx 36rpx; text-align: center; position: relative; overflow: hidden; }
+.result-glow { position: absolute; top: -100rpx; left: 50%; transform: translateX(-50%); width: 500rpx; height: 400rpx; pointer-events: none; }
+.result-icon { font-size: 120rpx; position: relative; z-index: 1; }
+.result-rating { font-size: 36rpx; font-weight: 800; position: relative; z-index: 1; margin-top: 12rpx; }
+.result-score-box { margin-top: 32rpx; position: relative; z-index: 1; }
+.result-score { font-size: 96rpx; font-weight: 900; color: #FFF; }
+.result-total { font-size: 40rpx; color: #6B7280; }
+.result-percent-bar { width: 80%; height: 12rpx; background: rgba(255,255,255,0.06); border-radius: 6rpx; overflow: hidden; margin: 24rpx auto 0; position: relative; z-index: 1; }
+.result-percent-fill { height: 100%; border-radius: 6rpx; transition: width 0.6s ease; }
+.result-percent-text { font-size: 24rpx; color: #8B92B0; margin-top: 12rpx; display: block; position: relative; z-index: 1; }
+.result-newbest { margin-top: 24rpx; font-size: 30rpx; font-weight: 700; color: #FFD700; position: relative; z-index: 1; }
+.result-best { margin-top: 24rpx; font-size: 24rpx; color: #6B7280; position: relative; z-index: 1; }
+.result-actions { width: 100%; display: flex; gap: 20rpx; margin-top: 48rpx; }
+.result-btn { flex: 1; text-align: center; padding: 24rpx; border-radius: 40rpx; font-size: 30rpx; font-weight: 700; }
+.result-btn:active { transform: scale(0.95); }
+.result-btn-primary { background: linear-gradient(90deg, #00D4FF, #0099E0); color: #0B1026; }
+.result-btn-ghost { background: transparent; border: 2rpx solid rgba(0,212,255,0.3); color: #00D4FF; }
+.result-home { margin-top: 32rpx; font-size: 26rpx; color: #6B7280; }
+.result-home:active { color: #00D4FF; }
+@keyframes fadeInUp { from { opacity:0; transform:translateY(20rpx); } to { opacity:1; transform:translateY(0); } }
+.fade-in-up { animation: fadeInUp 0.4s ease-out both; }
