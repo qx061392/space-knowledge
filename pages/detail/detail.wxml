@@ -1,6 +1,12 @@
 <view class="page space-bg" wx:if="{{item}}">
   <view class="starfield"></view>
-  <scroll-view scroll-y class="content-scroll" style="height: 100vh;">
+
+  <!-- 阅读进度条 -->
+  <view class="read-progress-bar">
+    <view class="read-progress-fill" style="width: {{readProgress}}%;"></view>
+  </view>
+
+  <scroll-view scroll-y class="content-scroll" style="height: 100vh;" bindscroll="onScroll" scroll-top="{{savedProgress > 0 ? savedProgress * 5 : 0}}">
     <view class="container" style="position:relative; z-index:1;">
 
       <!-- Hero -->
@@ -10,10 +16,11 @@
           <text class="detail-icon-emoji">{{item.icon}}</text>
         </view>
         <text class="detail-cat" style="color: {{catInfo.color}};">{{catInfo.icon}} {{catInfo.name}}</text>
-        <text class="detail-title">{{item.title}}</text>
+        <text class="detail-title" style="font-size: {{fontStyles.title}};">{{item.title}}</text>
         <text class="detail-subtitle">{{item.subtitle}}</text>
         <view class="detail-meta">
           <text class="detail-year" wx:if="{{item.year}}">📅 {{item.year}}</text>
+          <text class="detail-update-badge" wx:if="{{item.year >= '2024'}}">🆕 最新</text>
           <text class="detail-tag" wx:for="{{item.tags}}" wx:key="*this">#{{item}}</text>
         </view>
       </view>
@@ -33,15 +40,21 @@
       <view class="detail-section fade-in-up" style="animation-delay: 0.15s;">
         <view class="section-title">内容概要</view>
         <view class="detail-summary-box">
-          <text class="detail-summary">{{item.summary}}</text>
+          <text class="detail-summary" style="font-size: {{fontStyles.summary}};">{{item.summary}}</text>
         </view>
       </view>
 
       <!-- Full Content -->
       <view class="detail-section fade-in-up" style="animation-delay: 0.2s;">
-        <view class="section-title">详细科普</view>
+        <view class="section-title-row">
+          <view class="section-title">详细科普</view>
+          <view class="font-toggle" bindtap="toggleFontSize">
+            <text class="font-toggle-icon">A</text>
+            <text class="font-toggle-label">{{fontSize === 'small' ? '小' : fontSize === 'medium' ? '中' : '大'}}</text>
+          </view>
+        </view>
         <view class="detail-content">
-          <text class="detail-paragraph" wx:for="{{paragraphs}}" wx:key="index">{{item}}</text>
+          <text class="detail-paragraph" wx:for="{{paragraphs}}" wx:key="index" style="font-size: {{fontStyles.content}};">{{item}}</text>
         </view>
       </view>
 
