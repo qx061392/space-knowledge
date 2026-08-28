@@ -54,6 +54,21 @@
 
 .safe-bottom { padding-bottom: calc(16rpx + env(safe-area-inset-bottom)); }
 
+/* Reading Progress Bar */
+.read-progress-bar { position: fixed; top: 0; left: 0; right: 0; height: 4rpx; background: rgba(255,255,255,0.06); z-index: 200; }
+.read-progress-fill { height: 100%; background: linear-gradient(90deg, #00D4FF, #7B61FF); transition: width 0.1s; }
+
+/* Font Toggle */
+.section-title-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20rpx; }
+.section-title-row .section-title { margin-bottom: 0; }
+.font-toggle { display: flex; align-items: center; gap: 8rpx; background: rgba(0,212,255,0.1); border: 1rpx solid rgba(0,212,255,0.2); border-radius: 20rpx; padding: 6rpx 16rpx; }
+.font-toggle:active { transform: scale(0.95); }
+.font-toggle-icon { font-size: 22rpx; color: #00D4FF; font-weight: 700; }
+.font-toggle-label { font-size: 20rpx; color: #00D4FF; }
+
+/* Update Badge */
+.detail-update-badge { font-size: 20rpx; color: #2ECC71; background: rgba(46,204,113,0.12); padding: 2rpx 12rpx; border-radius: 16rpx; }
+
 /* Animations */
 @keyframes fadeInUp { from { opacity:0; transform:translateY(20rpx); } to { opacity:1; transform:translateY(0); } }
 .fade-in-up { animation: fadeInUp 0.4s ease-out both; }
