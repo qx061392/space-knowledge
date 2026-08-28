@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "knowledge-card": "/components/knowledge-card/knowledge-card"
+  },
+  "enablePullDownRefresh": true,
+  "backgroundTextStyle": "light"
+}
