@@ -3,8 +3,13 @@ const util = require('../../utils/util.js')
 Page({
   data: { keyword: '', results: [], hasSearched: false, hotTags: [], searchHistory: [] },
 
-  onLoad() {
-    getApp().onCloudReady(() => this.loadTags())
+  onLoad(options) {
+    getApp().onCloudReady(() => {
+      this.loadTags()
+      if (options.tag) {
+        this.setData({ keyword: options.tag }, () => this.onSearch())
+      }
+    })
     const searchHistory = wx.getStorageSync('space_search_history') || []
     this.setData({ searchHistory })
   },
