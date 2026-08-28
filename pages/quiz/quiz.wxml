@@ -24,6 +24,21 @@
         </view>
         <text class="quiz-tip">💡 选择正确答案后点击"下一题"继续</text>
       </view>
+
+      <!-- Leaderboard -->
+      <view class="quiz-leaderboard fade-in-up" style="animation-delay: 0.15s;" wx:if="{{leaderboard.length > 0}}">
+        <view class="section-title">🏆 挑战记录</view>
+        <view class="leaderboard-list">
+          <view class="leaderboard-item" wx:for="{{leaderboard}}" wx:key="index">
+            <text class="lb-rank">{{index + 1}}</text>
+            <text class="lb-score">{{item.score}}/{{item.total}}</text>
+            <text class="lb-percent">{{item.percent}}%</text>
+            <text class="lb-badge" wx:if="{{item.isNewBest}}">🥇</text>
+            <text class="lb-badge" wx:elif="{{index === 0 && !item.isNewBest}}">⭐</text>
+            <text class="lb-time">{{item.time > 0 ? '已挑战' : ''}}</text>
+          </view>
+        </view>
+      </view>
     </block>
 
     <!-- Question Stage -->
