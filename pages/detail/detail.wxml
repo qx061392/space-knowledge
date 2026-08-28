@@ -1,0 +1,74 @@
+<view class="page space-bg" wx:if="{{item}}">
+  <view class="starfield"></view>
+  <scroll-view scroll-y class="content-scroll" style="height: 100vh;">
+    <view class="container" style="position:relative; z-index:1;">
+
+      <!-- Hero -->
+      <view class="detail-hero fade-in-up">
+        <view class="detail-hero-bg" style="background: radial-gradient(circle at 50% 0%, {{catInfo.color}}20, transparent 70%);"></view>
+        <view class="detail-icon" style="background: {{catInfo.color}}22; border-color: {{catInfo.color}}44;">
+          <text class="detail-icon-emoji">{{item.icon}}</text>
+        </view>
+        <text class="detail-cat" style="color: {{catInfo.color}};">{{catInfo.icon}} {{catInfo.name}}</text>
+        <text class="detail-title">{{item.title}}</text>
+        <text class="detail-subtitle">{{item.subtitle}}</text>
+        <view class="detail-meta">
+          <text class="detail-year" wx:if="{{item.year}}">📅 {{item.year}}</text>
+          <text class="detail-tag" wx:for="{{item.tags}}" wx:key="*this">#{{item}}</text>
+        </view>
+      </view>
+
+      <!-- Key Data -->
+      <view class="detail-section fade-in-up" style="animation-delay: 0.1s;" wx:if="{{item.keyData && item.keyData.length}}">
+        <view class="section-title">关键数据</view>
+        <view class="keydata-grid">
+          <view class="keydata-item" wx:for="{{item.keyData}}" wx:key="label">
+            <text class="keydata-value">{{item.value}}</text>
+            <text class="keydata-label">{{item.label}}</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- Summary -->
+      <view class="detail-section fade-in-up" style="animation-delay: 0.15s;">
+        <view class="section-title">内容概要</view>
+        <view class="detail-summary-box">
+          <text class="detail-summary">{{item.summary}}</text>
+        </view>
+      </view>
+
+      <!-- Full Content -->
+      <view class="detail-section fade-in-up" style="animation-delay: 0.2s;">
+        <view class="section-title">详细科普</view>
+        <view class="detail-content">
+          <text class="detail-paragraph" wx:for="{{paragraphs}}" wx:key="index">{{item}}</text>
+        </view>
+      </view>
+
+      <!-- Tags -->
+      <view class="detail-tags" wx:if="{{item.tags && item.tags.length}}">
+        <text class="detail-tag-lg" wx:for="{{item.tags}}" wx:key="*this">#{{item}}</text>
+      </view>
+
+      <!-- Related -->
+      <view class="detail-section fade-in-up" style="animation-delay: 0.3s;" wx:if="{{related.length > 0}}">
+        <view class="section-title">相关知识</view>
+        <knowledge-card wx:for="{{related}}" wx:key="id" item="{{item}}" showCategory="{{false}}" compact="{{true}}"></knowledge-card>
+      </view>
+
+      <view style="height: 160rpx;"></view>
+    </view>
+  </scroll-view>
+
+  <!-- Bottom Action Bar -->
+  <view class="action-bar safe-bottom">
+    <view class="action-fav {{isFav ? 'action-fav-active' : ''}}" bindtap="toggleFav">
+      <text class="action-fav-icon">{{isFav ? '★' : '☆'}}</text>
+      <text class="action-fav-text">{{isFav ? '已收藏' : '收藏'}}</text>
+    </view>
+    <button class="action-share" open-type="share">
+      <text class="action-share-icon">↗</text>
+      <text class="action-share-text">分享</text>
+    </button>
+  </view>
+</view>
