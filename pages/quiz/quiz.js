@@ -12,18 +12,19 @@ Page({
     selectedOption: -1,
     answered: false,
     bestRecord: null,
+    leaderboard: [],
     progressPercent: 0,
     catInfo: {},
     optionLetters: ['A', 'B', 'C', 'D']
   },
 
   onLoad() {
-    this.setData({ bestRecord: storage.getQuizRecord() })
+    this.setData({ bestRecord: storage.getQuizRecord(), leaderboard: storage.getQuizHistory().slice(0, 5) })
   },
 
   onShow() {
     if (this.data.stage === 'intro') {
-      this.setData({ bestRecord: storage.getQuizRecord() })
+      this.setData({ bestRecord: storage.getQuizRecord(), leaderboard: storage.getQuizHistory().slice(0, 5) })
     }
     if (typeof this.getTabBar === 'function' && this.getTabBar()) {
       this.getTabBar().setData({ selected: 2 })
