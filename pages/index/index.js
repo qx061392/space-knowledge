@@ -40,6 +40,13 @@ Page({
       return { ...cat, count }
     })
 
+    // 标签云：统计所有标签出现频率
+    const tagMap = {}
+    knowledge.knowledgeList.forEach(item => {
+      if (item.tags) item.tags.forEach(tag => { tagMap[tag] = (tagMap[tag] || 0) + 1 })
+    })
+    const hotTags = Object.entries(tagMap).sort((a, b) => b[1] - a[1]).slice(0, 12).map(([tag]) => tag)
+
     const daily = util.pickDaily(knowledge.knowledgeList, 1)
     const dailyItem = daily[0] || knowledge.knowledgeList[0]
 
@@ -50,11 +57,13 @@ Page({
       totalKnowledge: knowledge.knowledgeList.length,
       totalQuiz: quiz.quizList.length,
       recentHistory: storage.getHistory().slice(0, 3),
+      hotTags,
       loading: false
     })
   },
 
   goToSearch() { wx.navigateTo({ url: '/pages/search/search' }) },
+  goToSearchTag(e) { wx.navigateTo({ url: '/pages/search/search?tag=' + e.currentTarget.dataset.tag }) },
   goToCategory(e) { wx.navigateTo({ url: '/pages/category-list/category-list?cat=' + e.currentTarget.dataset.id }) },
   goToCategoryList() { wx.switchTab({ url: '/pages/category/category' }) },
   goToDetail(e) {
