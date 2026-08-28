@@ -41,6 +41,16 @@
       </view>
     </view>
 
+    <!-- Tag Cloud -->
+    <view class="section fade-in-up" style="animation-delay: 0.05s;" wx:if="{{hotTags.length > 0}}">
+      <view class="section-header">
+        <view class="section-title">热门标签</view>
+      </view>
+      <view class="tag-cloud">
+        <text class="tag-cloud-item" wx:for="{{hotTags}}" wx:key="*this" bindtap="goToSearchTag" data-tag="{{item}}">#{{item}}</text>
+      </view>
+    </view>
+
     <!-- Daily Recommendation -->
     <view class="section fade-in-up" style="animation-delay: 0.1s;">
       <view class="section-header">
