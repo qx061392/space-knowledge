@@ -1,0 +1,37 @@
+<view class="page space-bg">
+  <view class="starfield"></view>
+  <view class="container" style="position:relative; z-index:1;">
+    <view class="result-card fade-in-up">
+      <view class="result-glow" style="background: radial-gradient(circle at 50% 0%, {{ratingColor}}25, transparent 60%);"></view>
+      <view class="result-icon">{{ratingIcon}}</view>
+      <text class="result-rating" style="color: {{ratingColor}};">{{rating}}</text>
+      <view class="result-score-box">
+        <text class="result-score">{{score}}</text>
+        <text class="result-total"> / {{total}}</text>
+      </view>
+      <view class="result-percent-bar">
+        <view class="result-percent-fill" style="width: {{percent}}%; background: linear-gradient(90deg, {{ratingColor}}, {{ratingColor}}aa);"></view>
+      </view>
+      <text class="result-percent-text">{{percent}}% 正确率</text>
+
+      <view class="result-newbest" wx:if="{{isNewBest}}">
+        <text>🎉 新纪录！</text>
+      </view>
+      <view class="result-best" wx:if="{{bestScore > 0 && !isNewBest}}">
+        <text>最佳成绩: {{bestScore}} 分</text>
+      </view>
+    </view>
+
+    <view class="result-actions fade-in-up" style="animation-delay: 0.15s;">
+      <view class="result-btn result-btn-primary" bindtap="retry">
+        <text>再战一局</text>
+      </view>
+      <view class="result-btn result-btn-ghost" bindtap="goCategory">
+        <text>学习知识</text>
+      </view>
+    </view>
+    <view class="result-home fade-in-up" style="animation-delay: 0.3s;" bindtap="goHome">
+      <text>返回首页</text>
+    </view>
+  </view>
+</view>
