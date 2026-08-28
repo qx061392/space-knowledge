@@ -1,0 +1,74 @@
+<view class="page space-bg">
+  <view class="starfield"></view>
+  <view class="container" style="position:relative; z-index:1;">
+
+    <!-- Intro Stage -->
+    <block wx:if="{{stage === 'intro'}}">
+      <view class="quiz-intro fade-in-up">
+        <view class="quiz-intro-icon">🧠</view>
+        <text class="quiz-intro-title">航天知识问答</text>
+        <text class="quiz-intro-desc">挑战你的航天知识储备，每轮 {{10}} 道随机题目</text>
+        <view class="quiz-best" wx:if="{{bestRecord && bestRecord.bestScore}}">
+          <view class="quiz-best-item">
+            <text class="quiz-best-num">{{bestRecord.bestScore}}</text>
+            <text class="quiz-best-label">最高得分</text>
+          </view>
+          <view class="quiz-best-divider"></view>
+          <view class="quiz-best-item">
+            <text class="quiz-best-num">{{bestRecord.totalAttempts || 0}}</text>
+            <text class="quiz-best-label">挑战次数</text>
+          </view>
+        </view>
+        <view class="quiz-start-btn" bindtap="startQuiz">
+          <text class="quiz-start-text">开始答题</text>
+        </view>
+        <text class="quiz-tip">💡 选择正确答案后点击"下一题"继续</text>
+      </view>
+    </block>
+
+    <!-- Question Stage -->
+    <block wx:if="{{stage === 'question'}}">
+      <view class="quiz-progress-bar">
+        <view class="quiz-progress-fill" style="width: {{progressPercent}}%;"></view>
+      </view>
+      <view class="quiz-counter">
+        <text class="quiz-counter-cur">{{currentIndex + 1}}</text>
+        <text class="quiz-counter-total"> / {{questions.length}}</text>
+        <text class="quiz-score-display">得分: {{score}}</text>
+      </view>
+
+      <view class="quiz-card fade-in-up" wx:if="{{questions[currentIndex]}}">
+        <view class="quiz-card-top">
+          <text class="quiz-cat-tag" style="color: {{catInfo.color}}; background: {{catInfo.color}}18;">{{catInfo.icon}} {{catInfo.name}}</text>
+          <text class="quiz-difficulty" style="color: {{questions[currentIndex].difficulty === '简单' ? '#2ECC71' : questions[currentIndex].difficulty === '中等' ? '#F5A623' : '#E94B3C'}};">{{questions[currentIndex].difficulty}}</text>
+        </view>
+        <text class="quiz-question">{{questions[currentIndex].question}}</text>
+
+        <view class="quiz-options">
+          <view class="quiz-option {{selectedOption === index ? (index === questions[currentIndex].answer ? 'opt-correct' : 'opt-wrong') : ''}} {{answered && index === questions[currentIndex].answer ? 'opt-correct' : ''}}"
+            wx:for="{{questions[currentIndex].options}}" wx:key="*this"
+            data-index="{{index}}" bindtap="selectOption">
+            <text class="opt-letter">{{optionLetters[index]}}</text>
+            <text class="opt-text">{{item}}</text>
+            <text class="opt-icon" wx:if="{{answered && index === questions[currentIndex].answer}}">✓</text>
+            <text class="opt-icon opt-icon-wrong" wx:if="{{answered && selectedOption === index && index !== questions[currentIndex].answer}}">✕</text>
+          </view>
+        </view>
+
+        <view class="quiz-explanation" wx:if="{{answered}}">
+          <view class="quiz-exp-header">
+            <text class="quiz-exp-icon">{{selectedOption === questions[currentIndex].answer ? '✅' : '❌'}}</text>
+            <text class="quiz-exp-title">{{selectedOption === questions[currentIndex].answer ? '回答正确！' : '回答错误'}}</text>
+          </view>
+          <text class="quiz-exp-text">{{questions[currentIndex].explanation}}</text>
+        </view>
+
+        <view class="quiz-next-btn {{answered ? 'btn-active' : ''}}" bindtap="nextQuestion">
+          <text>{{currentIndex + 1 >= questions.length ? '查看结果' : '下一题'}}</text>
+        </view>
+      </view>
+    </block>
+
+    <view class="tab-bottom-space"></view>
+  </view>
+</view>
