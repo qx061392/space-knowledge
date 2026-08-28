@@ -453,3 +453,8 @@
 /* Migrate entry */
 .migrate-entry { text-align: center; padding: 12rpx 0; }
 .migrate-entry text { font-size: 22rpx; color: #4B5568; }
+
+/* Tag Cloud */
+.tag-cloud { display: flex; flex-wrap: wrap; gap: 16rpx; }
+.tag-cloud-item { font-size: 24rpx; color: #00D4FF; background: rgba(0,212,255,0.08); border: 1rpx solid rgba(0,212,255,0.15); padding: 8rpx 20rpx; border-radius: 24rpx; }
+.tag-cloud-item:active { background: rgba(0,212,255,0.15); transform: scale(0.95); }
